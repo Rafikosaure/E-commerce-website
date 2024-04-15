@@ -1,0 +1,28 @@
+.main-div {
+    padding: 40px;
+    border: 1px solid white;
+    border-radius: 20px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form label {
+    margin-top: 40px;
+    margin-bottom: 25px;
+}
+
+.login-form input {
+    height: 25px;
+    border-radius: 10px;
+    padding-left: 5px;
+}
+
+.login-form button {
+    margin-top: 40px;
+    background-color: azure;
+    color: black;
+    border-radius: 10px;
+}
