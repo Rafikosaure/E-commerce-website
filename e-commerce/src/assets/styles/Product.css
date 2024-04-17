@@ -1,0 +1,17 @@
+.form-article {
+    display: flex;
+    flex-direction: column;
+    min-width: 250px;
+    margin-bottom: 60px;
+}
+
+.form-article label, fieldset, button {
+    margin-top: 20px;
+}
+
+.form-article input, select, option {
+    background-color: white;
+    height: 25px;
+    border-radius: 10px;
+    padding-left: 5px;
+}

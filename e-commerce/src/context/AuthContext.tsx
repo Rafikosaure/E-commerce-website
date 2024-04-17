@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
             setUser(data)
             console.log(data)
             // Stockez les données de l'utilissateur dans le asynctorage
-            localStorage.setItem('user_id', JSON.stringify(data._id))
+            localStorage.setItem('user', JSON.stringify(data))
 
             // Met isLoading à false apres une authentification réussie.
             setIsLoading(false)
