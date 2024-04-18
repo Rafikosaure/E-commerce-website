@@ -2,16 +2,21 @@ import { useForm } from "react-hook-form"
 import '../../assets/styles/Product.css'
 import axios from 'axios'
 import { URL_ADD } from "../../urls/Urls"
+import { useSelector, useDispatch } from 'react-redux'
+import { addItemToBasket, selectItems } from '../../redux/features/basketSlice'
 
 
 export default function Product() {
 
   const { register, handleSubmit } = useForm()
   let Article;
-  
+  const dispatch = useDispatch()
+  const storeItems = useSelector(selectItems)
+
   const onSubmit = async (product) => {
     Article = {...product, stock: parseInt(product.stock), price: parseInt(product.price), online: product.online === "false" ? false : true, picture: [{ img: product.picture }]}
-    console.log(Article)
+    console.log('Article :', Article)
+    dispatch(addItemToBasket(Article))
     try {
       const response = await axios.post(URL_ADD, Article)
       console.log(response)
@@ -19,6 +24,7 @@ export default function Product() {
       console.log(error)
     }
   }
+  console.log('Contenu actuel du panier :', storeItems)
 
   return (
     <div>
