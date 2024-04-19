@@ -14,12 +14,22 @@ export default function Product() {
   const storeItems = useSelector(selectItems)
 
   const onSubmit = async (product) => {
-    Article = {...product, stock: parseInt(product.stock), price: parseInt(product.price), online: product.online === "false" ? false : true, picture: [{ img: product.picture }]}
-    console.log('Article :', Article)
-    dispatch(addItemToBasket(Article))
+    Article = {...product, stock: parseInt(product.stock), price: parseInt(product.price), 
+      online: product.online === "false" ? false : true, picture: [{ img: product.picture }]}
     try {
       const response = await axios.post(URL_ADD, Article)
+      let initialStorage = localStorage.getItem('articles')
+      if (initialStorage !== null) {
+        const contentStorage = JSON.parse(localStorage.getItem("articles"))
+        contentStorage.push(Article)
+        localStorage.setItem("articles", JSON.stringify(contentStorage))
+      } else {
+        const storageList = []
+        storageList.push(Article)
+        localStorage.setItem('articles', JSON.stringify(storageList))
+      }
       console.log(response)
+      dispatch(addItemToBasket(Article))
     } catch(error) {
       console.log(error)
     }
@@ -27,6 +37,7 @@ export default function Product() {
   console.log('Contenu actuel du panier :', storeItems)
 
   return (
+    <>
     <div>
       <h1>Achat produit</h1>
       <form className='form-article' onSubmit={handleSubmit(onSubmit)}>
@@ -73,5 +84,32 @@ export default function Product() {
         <button type="submit">Enregistrer</button>
       </form>
     </div>
+    {/* <div>
+      {test.length > 0 ? (<table>
+        <caption>Tableau des articles</caption>
+        <thead>
+          <tr>
+              <th>Nom de l'article</th>
+              <th>Marque</th>
+              <th>Description</th>
+              <th>Prix</th>
+          </tr>
+          </thead>
+          <tbody>
+          {test.map((item, index) => {
+            return (
+              <tr key={index}>
+                <td>{item.name}</td>
+                <td>{item.brand}</td>
+                <td>{item.content}</td>
+                <td>{item.price} €</td>
+              </tr>
+            )
+          })}
+          </tbody>
+        </table>) : null 
+      }
+    </div> */}
+  </>
   )
 }
