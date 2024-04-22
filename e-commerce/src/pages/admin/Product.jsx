@@ -12,6 +12,7 @@ export default function Product() {
   let Article;
   const dispatch = useDispatch()
   const storeItems = useSelector(selectItems)
+  let listItems = []
 
   const onSubmit = async (product) => {
     Article = {...product, stock: parseInt(product.stock), price: parseInt(product.price), 
@@ -20,25 +21,28 @@ export default function Product() {
       const response = await axios.post(URL_ADD, Article)
       let initialStorage = localStorage.getItem('articles')
       if (initialStorage !== null) {
-        const contentStorage = JSON.parse(localStorage.getItem("articles"))
-        contentStorage.push(Article)
-        localStorage.setItem("articles", JSON.stringify(contentStorage))
+        const listStorage = JSON.parse(localStorage.getItem("articles"))
+        listStorage.push(Article)
+        localStorage.setItem("articles", JSON.stringify(listStorage))
       } else {
-        const storageList = []
-        storageList.push(Article)
-        localStorage.setItem('articles', JSON.stringify(storageList))
+        const listStorage = []
+        listStorage.push(Article)
+        localStorage.setItem('articles', JSON.stringify(listStorage))
       }
       console.log(response)
       dispatch(addItemToBasket(Article))
+      listItems.push(Article)
     } catch(error) {
       console.log(error)
     }
+    return Article
   }
   console.log('Contenu actuel du panier :', storeItems)
+  // console.log('Contenu de la liste des items :', listItems)
 
   return (
     <>
-    <div>
+    <div className="product-page">
       <h1>Achat produit</h1>
       <form className='form-article' onSubmit={handleSubmit(onSubmit)}>
 
@@ -85,7 +89,7 @@ export default function Product() {
       </form>
     </div>
     {/* <div>
-      {test.length > 0 ? (<table>
+      {listItems.length > 0 ? (<table>
         <caption>Tableau des articles</caption>
         <thead>
           <tr>
@@ -96,7 +100,7 @@ export default function Product() {
           </tr>
           </thead>
           <tbody>
-          {test.map((item, index) => {
+          {listItems.map((item, index) => {
             return (
               <tr key={index}>
                 <td>{item.name}</td>

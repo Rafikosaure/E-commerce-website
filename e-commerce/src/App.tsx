@@ -3,17 +3,18 @@ import './App.css'
 import SignUp from "./pages/pageAuth/SignUp"
 import Sign from './pages/pageAuth/Sign'
 import Product from './pages/admin/Product'
-
+import Basket from './components/Basket'
 
 function App() {
 
   return (
     <Router>
-      <Routes>
-        <Route path='/' element={<Product/>} />
-        <Route path='/user/signup' element={<SignUp/>} />
-        <Route path="/user/sign" element={<Sign/>} />
-      </Routes>
+      <Basket />
+        <Routes>
+          <Route path='/' element={<Product/>} />
+          <Route path='/user/signup' element={<SignUp/>} />
+          <Route path="/user/sign" element={<Sign/>} />
+        </Routes>
     </Router>
   )
 }

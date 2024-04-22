@@ -1,0 +1,16 @@
+.basket {
+    width: 300px;
+    height: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: lightseagreen;
+    border: 1px solid black;
+}
+
+.basket-div {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+}
